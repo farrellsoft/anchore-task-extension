@@ -1,0 +1,21 @@
+{
+  "name": "AnchoreTask",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/command-exists": "^1.2.0",
+    "azure-pipelines-task-lib": "^2.9.3",
+    "command-exists": "^1.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^12.7.12",
+    "@types/q": "^1.5.2"
+  }
+}
