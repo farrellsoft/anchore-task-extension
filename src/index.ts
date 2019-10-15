@@ -34,7 +34,7 @@ async function run() {
 
   try {
     // add the image to anchore engine
-    var addImageResult: boolean = sdk.addImage(anchoreImage);
+    sdk.addImage(anchoreImage);
 
     // analyze the image
     var imageAnalyzed: boolean = analyze_image(sdk, anchoreImage)
