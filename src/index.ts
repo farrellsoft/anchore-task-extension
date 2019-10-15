@@ -1,23 +1,14 @@
 import task = require("azure-pipelines-task-lib/task");
 import commandExists from "command-exists";
-import { AnchoreSdk } from "./sdk/AnchoreSdk";
+import { AnchoreService } from "./services/AnchoreService";
 
 import analyze_image from './analyze_image';
+import { TaskInput } from "./TaskInput";
 
 async function run() {
-  const anchoreUrl: string | undefined = task.getInput(
-    "anchoreEngineUrl",
-    true
-  );
-  const anchoreUser: string | undefined = task.getInput(
-    "anchoreEngineUser",
-    true
-  );
-  const anchorePassword: string | undefined = task.getInput(
-    "anchoreEnginePassword",
-    true
-  );
-  const anchoreImage: string | undefined = task.getInput("anchoreImage", true);
+  var input: TaskInput = new TaskInput();
+  var executeVulnScan: boolean = task.getBoolInput("doVulnScan", false);
+  if (executeVulnScan === undefined) { executeVulnScan = false; }
 
   // does anchor-cli exist
   var exists = commandExists.sync("anchore-cli");
@@ -26,24 +17,24 @@ async function run() {
     return;
   }
 
-  var sdk = new AnchoreSdk(
-    anchoreUser,
-    anchorePassword,
-    anchoreUrl
+  var sdk = new AnchoreService(
+    input.getEngineUser(),
+    input.getEnginePassword(),
+    input.getEngineUrl()
   );
 
   try {
     // add the image to anchore engine
-    sdk.addImage(anchoreImage);
+    sdk.addImage(input.getImageName());
 
     // analyze the image
-    var imageAnalyzed: boolean = analyze_image(sdk, anchoreImage)
+    var imageAnalyzed: boolean = analyze_image(sdk, input.getImageName())
     if (!imageAnalyzed) {
       task.setResult(task.TaskResult.Failed, "Image failed to be analyzed");
       return;
     }
 
-    task.setResult(task.TaskResult.Succeeded, "Image analysis successful");
+    console.log("Image analysis successful");
   }
   catch (err) {
     task.setResult(task.TaskResult.Failed, err);
