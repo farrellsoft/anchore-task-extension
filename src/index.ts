@@ -1,7 +1,8 @@
 import task = require("azure-pipelines-task-lib/task");
 import commandExists from "command-exists";
-import * as cp from "child_process";
-import * as tp from "typed-promisify";
+import { AnchoreSdk } from "./sdk/AnchoreSdk";
+
+import analyze_image from './analyze_image';
 
 async function run() {
   const anchoreUrl: string | undefined = task.getInput(
@@ -25,42 +26,28 @@ async function run() {
     return;
   }
 
-  // add the image to anchore engine
-  var commandString: string = `anchore-cli --u ${anchoreUser} --p ${anchorePassword} --url ${anchoreUrl} image add ${anchoreImage}`;
-  console.log(commandString);
+  var sdk = new AnchoreSdk(
+    anchoreUser,
+    anchorePassword,
+    anchoreUrl
+  );
 
-  var execOutput: Buffer = cp.execSync(commandString);
-  if (!execOutput) {
-    task.setResult(
-      task.TaskResult.Failed,
-      "Failed to add Image to Achore Scanning engine"
-    );
-    return;
-  }
+  try {
+    // add the image to anchore engine
+    var addImageResult: boolean = sdk.addImage(anchoreImage);
 
-  // now wait for the analysis to complete
-  var max_attempts = 100;
-  var current_attempt = 1;
-  const analyzed_status_complete = "analyzed";
-
-  commandString = `anchore-cli --u ${anchoreUser} --p ${anchorePassword} --url ${anchoreUrl} image get ${anchoreImage}`;
-
-  do {
-    console.log(`Attempt #${current_attempt}`);
-    var resultBuffer: Buffer = cp.execSync(commandString);
-    var resultString = resultBuffer.toString();
-
-    var matches = resultString.match(/Analysis Status: (\w+)\W+/);
-    if (matches && matches.length > 1) {
-      var analyzed_status = matches[1];
-      if (analyzed_status == analyzed_status_complete) {
-        break;
-      }
+    // analyze the image
+    var imageAnalyzed: boolean = analyze_image(sdk, anchoreImage)
+    if (!imageAnalyzed) {
+      task.setResult(task.TaskResult.Failed, "Image failed to be analyzed");
+      return;
     }
 
-    current_attempt++;
-    await new Promise(resolve => setTimeout(resolve, 5000));
-  } while (current_attempt <= max_attempts);
+    task.setResult(task.TaskResult.Succeeded, "Image analysis successful");
+  }
+  catch (err) {
+    task.setResult(task.TaskResult.Failed, err);
+  }
 
   console.log("run completed");
 }
