@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
   "id": "501e3166-7a34-4b2d-bec0-0ebbff48dafb",
   "name": "AnchoreTask",
   "friendlyName": "Anchore Task",
@@ -51,7 +52,7 @@
     },
     {
       "name": "minHighAllowed",
-      "type": "number",
+      "type": "string",
       "label": "Minimum High Vulnerabilities allowed",
       "required": false,
       "helpMarkDown": "The minimum number of high vulnerabilities allowed"
@@ -59,7 +60,7 @@
   ],
   "execution": {
     "Node": {
-      "target": "dist/task.js"
+      "target": "dist/index.js"
     }
   }
 }

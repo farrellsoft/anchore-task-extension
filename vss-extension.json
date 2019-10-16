@@ -1,41 +1,36 @@
 {
   "manifestVersion": 1,
-  "id": "tools",
-  "version": "0.1.2",
-  "name": "Anchore Task",
+  "id": "anchore-task",
+  "name": "Anchore Image Scanning",
+  "version": "1.0.2",
   "publisher": "farrellsoft",
-  "description": "Integrate with Anchore Container scanning",
   "targets": [
     {
       "id": "Microsoft.VisualStudio.Services"
     }
   ],
+  "description": "Scan images for policy and vulnerabilities",
+  "categories": [
+    "Azure Pipelines"
+  ],
   "icons": {
     "default": "images/anchore128.png"
   },
-  "scopes": ["vso.work", "vso.code_write", "vso.build_execute"],
-  "categories": ["Azure Pipelines"],
-  "content": {
-    "details": {
-      "path": "readme.md"
-    },
-    "license": {
-      "path": "eula.md"
-    }
-  },
-  "repository": {
-    "type": "git",
-    "uri": "https://github.com/xximjasonxx/anchore-task-extension"
-  },
   "files": [
     {
-      "path": "dist/"
+      "path": "buildAndReleaseTask"
     }
   ],
-  "contributionTypes": [
+  "contributions": [
     {
-      "id": "build-task",
-      "name":"scan image"
+      "id": "anchore-task",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "buildAndReleaseTask"
+      }
     }
   ]
 }

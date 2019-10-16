@@ -1,4 +1,4 @@
-import task = require("azure-pipelines-task-lib/task");
+import task = require("azure-pipelines-task-lib");
 import commandExists from "command-exists";
 import { AnchoreService } from "./AnchoreService";
 

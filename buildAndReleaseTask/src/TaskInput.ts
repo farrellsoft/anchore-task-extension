@@ -1,5 +1,5 @@
 
-import task = require("azure-pipelines-task-lib/task");
+import task = require("azure-pipelines-task-lib");
 
 export class TaskInput {
   getEngineUrl(): string {
