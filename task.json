@@ -1,51 +1,58 @@
 {
   "id": "501e3166-7a34-4b2d-bec0-0ebbff48dafb",
-  "name": "${Name}",
-  "friendlyName": "${FriendlyName}",
-  "description": "${Description}",
+  "name": "AnchoreTask",
+  "friendlyName": "Anchore Task",
+  "description": "Task for Integrating with Anchore Engine",
   "helpMarkDown": "",
   "category": "Utility",
-  "author": "${Author}",
+  "author": "Farrellsoft",
   "version": {
     "Major": 0,
     "Minor": 1,
     "Patch": 0
   },
   "visibility": ["Build", "Release"],
-  "instanceNameFormat": "Retrieving $(baseurl) from AirTable",
+  "instanceNameFormat": "Analyzing Image with Anchore",
   "inputs": [
     {
-      "name": "anchoreEngineUrl",
+      "name": "engineUrl",
       "type": "string",
       "label": "Anchore Engine Url",
       "required": true,
       "helpMarkDown": "The Url for the Anchor Engine Api"
     },
     {
-      "name": "anchoreEngineUser",
+      "name": "engineUser",
       "type": "string",
       "label": "Anchore Engine User",
       "required": true,
       "helpMarkDown": "The User for accessing the Anchor Engine Api"
     },
     {
-      "name": "anchoreEnginePassword",
+      "name": "enginePassword",
       "type": "string",
       "label": "Anchore Engine Password",
       "required": true,
       "helpMarkDown": "The Password for accessing the Anchor Engine Api"
     },
     {
-      "name": "anchoreImage",
+      "name": "imageName",
       "type": "string",
-      "label": "Analyze Container Image",
+      "label": "Analyze Image",
       "required": true,
       "helpMarkDown": "The Image to Analyze - must be stored in a registered registry"
+    },
+    {
+      "name": "doVulnScan",
+      "type": "boolean",
+      "label": "Execute Vulnerability Scan",
+      "required": false,
+      "helpMarkDown": "Indicate whether or not to produce a vulernability report for the scanned image"
     }
   ],
   "execution": {
     "Node": {
-      "target": "src/index.js"
+      "target": "dist/task.js"
     }
   }
 }

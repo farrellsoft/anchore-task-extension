@@ -13,7 +13,7 @@ export class TaskInput {
     return anchoreUrl;
   }
 
-  getEngineUser() {
+  getEngineUser(): string {
     const engineUser: string | undefined = task.getInput(
       "engineUser",
       true
@@ -24,7 +24,7 @@ export class TaskInput {
     return engineUser;
   }
 
-  getEnginePassword() {
+  getEnginePassword(): string {
     const enginePassword: string | undefined = task.getInput(
       "enginePassword",
       true
@@ -35,11 +35,19 @@ export class TaskInput {
     return enginePassword;
   }
 
-  getImageName() {
+  getImageName(): string {
     const anchoreImage: string | undefined = task.getInput("imageName", true);
     if (anchoreImage === undefined || anchoreImage.length === 0)
       throw new Error("An image name for analysis must be provided");
 
       return anchoreImage;
+  }
+
+  getExecuteVulnScan(): boolean {
+    const executeVulnScan: boolean | undefined = task.getBoolInput("doVulnScan", false);
+    if (executeVulnScan === undefined)
+      return false;
+
+    return executeVulnScan;
   }
 }

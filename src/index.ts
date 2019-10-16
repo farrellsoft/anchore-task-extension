@@ -1,15 +1,14 @@
 import task = require("azure-pipelines-task-lib/task");
 import commandExists from "command-exists";
-import { AnchoreService } from "./services/AnchoreService";
+import { AnchoreService } from "./AnchoreService";
 
-import analyze_image from './analyze_image';
+import analyze_image from './AnalyzeImage';
 import { TaskInput } from "./TaskInput";
+import { VulnScan } from "./VulnScan";
 
 async function run() {
   var input: TaskInput = new TaskInput();
-  var executeVulnScan: boolean = task.getBoolInput("doVulnScan", false);
-  if (executeVulnScan === undefined) { executeVulnScan = false; }
-
+  
   // does anchor-cli exist
   var exists = commandExists.sync("anchore-cli");
   if (!exists) {
@@ -17,7 +16,7 @@ async function run() {
     return;
   }
 
-  var sdk = new AnchoreService(
+  var service = new AnchoreService(
     input.getEngineUser(),
     input.getEnginePassword(),
     input.getEngineUrl()
@@ -25,13 +24,18 @@ async function run() {
 
   try {
     // add the image to anchore engine
-    sdk.addImage(input.getImageName());
+    service.addImage(input.getImageName());
 
     // analyze the image
-    var imageAnalyzed: boolean = analyze_image(sdk, input.getImageName())
+    var imageAnalyzed: boolean = analyze_image(service, input.getImageName())
     if (!imageAnalyzed) {
       task.setResult(task.TaskResult.Failed, "Image failed to be analyzed");
       return;
+    }
+
+    if (input.getExecuteVulnScan()) {
+      var vulnScan: VulnScan = new VulnScan(input, service);
+      vulnScan.executeScan();
     }
 
     console.log("Image analysis successful");

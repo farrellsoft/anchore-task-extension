@@ -22,7 +22,7 @@ export class AnchoreService {
   }
 
   getAllImageVulnResults(imageRequest: string | undefined): string {
-    var buffer: Buffer = cp.execSync(`anchore-cli --u ${this.username} --p ${this.password} --url ${this.anchoreUrl} image vuln ${imageRequest} all`);
+    var buffer: Buffer = cp.execSync(`anchore-cli --json --u ${this.username} --p ${this.password} --url ${this.anchoreUrl} image vuln ${imageRequest} all`);
     return buffer.toString();
   }
 }

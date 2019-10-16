@@ -1,4 +1,4 @@
-import { AnchoreService } from "./services/AnchoreService";
+import { AnchoreService } from "./AnchoreService";
 
 const MAX_ATTEMPTS: number = 100;
 const ANALYZED_STATUS_COMPLETED = "analyzed";
