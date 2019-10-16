@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "id": "tools",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "name": "Anchore Task",
   "publisher": "farrellsoft",
   "description": "Integrate with Anchore Container scanning",
@@ -11,14 +11,10 @@
     }
   ],
   "icons": {
-    "default": "images/fabrikam-logo.png"
+    "default": "images/anchore128.png"
   },
   "scopes": ["vso.work", "vso.code_write", "vso.build_execute"],
-  "categories": ["Azure Boards"],
-  "branding": {
-    "color": "rgb(34, 34, 34)",
-    "theme": "dark"
-  },
+  "categories": ["Azure Pipelines"],
   "content": {
     "details": {
       "path": "readme.md"
@@ -27,39 +23,19 @@
       "path": "eula.md"
     }
   },
-  "links": {
-    "getstarted": {
-      "uri": "https://www.jfarrell.net"
-    },
-    "support": {
-      "uri": "https://www.jfarrell.net"
-    }
-  },
   "repository": {
     "type": "git",
     "uri": "https://github.com/xximjasonxx/anchore-task-extension"
   },
-  "contributions": [
-    {
-      "id": "showCommits",
-      "type": "ms.vss-web.action",
-      "description": "Adds a menu action from builds grid to show associated items.",
-      "targets": ["ms.vss-build-web.completed-build-menu"],
-      "properties": {
-        "title": "View associated items",
-        "uri": "launch.html"
-      }
-    }
-  ],
   "files": [
     {
-      "path": "launch.html",
-      "addressable": true
-    },
+      "path": "dist/"
+    }
+  ],
+  "contributionTypes": [
     {
-      "path": "node_modules/vss-web-extension-sdk/lib",
-      "addressable": true,
-      "packagePath": "lib"
+      "id": "build-task",
+      "name":"scan image"
     }
   ]
 }
