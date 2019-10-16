@@ -3,10 +3,11 @@ import commandExists from "command-exists";
 import { AnchoreService } from "./AnchoreService";
 
 import analyze_image from './AnalyzeImage';
-import { TaskInput } from "./TaskInput";
-import { VulnScan } from "./VulnScan";
+import { TaskInput } from './TaskInput';
+import { VulnScan } from './VulnScan';
+import { VulnSeverity } from './enum';
 
-async function run() {
+function run() {
   var input: TaskInput = new TaskInput();
   
   // does anchor-cli exist
@@ -33,9 +34,16 @@ async function run() {
       return;
     }
 
+    // do we need to do a vulnerability scan
     if (input.getExecuteVulnScan()) {
       var vulnScan: VulnScan = new VulnScan(input, service);
       vulnScan.executeScan();
+
+      const highCount: Number = vulnScan.getCount(VulnSeverity.HIGH);
+      if (highCount > input.getMinimumHighCount()) {
+        task.setResult(task.TaskResult.Failed, "Scanned image has too many high vulnerabilities");
+        return;
+      }
     }
 
     console.log("Image analysis successful");

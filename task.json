@@ -48,6 +48,13 @@
       "label": "Execute Vulnerability Scan",
       "required": false,
       "helpMarkDown": "Indicate whether or not to produce a vulernability report for the scanned image"
+    },
+    {
+      "name": "minHighAllowed",
+      "type": "number",
+      "label": "Minimum High Vulnerabilities allowed",
+      "required": false,
+      "helpMarkDown": "The minimum number of high vulnerabilities allowed"
     }
   ],
   "execution": {

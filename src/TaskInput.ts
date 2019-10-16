@@ -50,4 +50,16 @@ export class TaskInput {
 
     return executeVulnScan;
   }
+
+  getMinimumHighCount(): number {
+    const minHighVulnAllowedRaw: string | undefined = task.getInput("minHighAllowed", false);
+    if (minHighVulnAllowedRaw === undefined)
+      return 0;
+
+    var parsedValue = Number(minHighVulnAllowedRaw);
+    if (parsedValue === NaN)
+      throw new Error("The given value for Min High Vulnerability allowed is not a number");
+    
+    return parsedValue;
+  }
 }

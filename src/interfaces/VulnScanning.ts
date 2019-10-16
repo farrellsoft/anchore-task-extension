@@ -1,4 +1,6 @@
 
+import { VulnSeverity } from '../enum';
+
 export interface VulnScanRoot {
     vulnerabilities: VulnScanItem[];
 }
