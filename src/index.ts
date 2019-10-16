@@ -1,24 +1,15 @@
 import task = require("azure-pipelines-task-lib/task");
 import commandExists from "command-exists";
-import { AnchoreSdk } from "./sdk/AnchoreSdk";
+import { AnchoreService } from "./AnchoreService";
 
-import analyze_image from './analyze_image';
+import analyze_image from './AnalyzeImage';
+import { TaskInput } from './TaskInput';
+import { VulnScan } from './VulnScan';
+import { VulnSeverity } from './enum';
 
-async function run() {
-  const anchoreUrl: string | undefined = task.getInput(
-    "anchoreEngineUrl",
-    true
-  );
-  const anchoreUser: string | undefined = task.getInput(
-    "anchoreEngineUser",
-    true
-  );
-  const anchorePassword: string | undefined = task.getInput(
-    "anchoreEnginePassword",
-    true
-  );
-  const anchoreImage: string | undefined = task.getInput("anchoreImage", true);
-
+function run() {
+  var input: TaskInput = new TaskInput();
+  
   // does anchor-cli exist
   var exists = commandExists.sync("anchore-cli");
   if (!exists) {
@@ -26,24 +17,36 @@ async function run() {
     return;
   }
 
-  var sdk = new AnchoreSdk(
-    anchoreUser,
-    anchorePassword,
-    anchoreUrl
+  var service = new AnchoreService(
+    input.getEngineUser(),
+    input.getEnginePassword(),
+    input.getEngineUrl()
   );
 
   try {
     // add the image to anchore engine
-    sdk.addImage(anchoreImage);
+    service.addImage(input.getImageName());
 
     // analyze the image
-    var imageAnalyzed: boolean = analyze_image(sdk, anchoreImage)
+    var imageAnalyzed: boolean = analyze_image(service, input.getImageName())
     if (!imageAnalyzed) {
       task.setResult(task.TaskResult.Failed, "Image failed to be analyzed");
       return;
     }
 
-    task.setResult(task.TaskResult.Succeeded, "Image analysis successful");
+    // do we need to do a vulnerability scan
+    if (input.getExecuteVulnScan()) {
+      var vulnScan: VulnScan = new VulnScan(input, service);
+      vulnScan.executeScan();
+
+      const highCount: Number = vulnScan.getCount(VulnSeverity.HIGH);
+      if (highCount > input.getMinimumHighCount()) {
+        task.setResult(task.TaskResult.Failed, "Scanned image has too many high vulnerabilities");
+        return;
+      }
+    }
+
+    console.log("Image analysis successful");
   }
   catch (err) {
     task.setResult(task.TaskResult.Failed, err);

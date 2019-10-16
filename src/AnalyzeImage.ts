@@ -1,14 +1,14 @@
-import { AnchoreSdk } from "./sdk/AnchoreSdk";
+import { AnchoreService } from "./AnchoreService";
 
 const MAX_ATTEMPTS: number = 100;
 const ANALYZED_STATUS_COMPLETED = "analyzed";
 
-export default function analyzeImage(sdk: AnchoreSdk, imageRequest: string | undefined): boolean {
+export default function analyzeImage(sdk: AnchoreService, imageRequest: string | undefined): boolean {
   var current_attempt = 1;
   var analysisComplete: boolean = false;
   do {
     console.log(`Attempt #${current_attempt}`);
-    var resultString: string = sdk.getImageDetailsCommandString(imageRequest);
+    var resultString: string = sdk.getImageDetailsResults(imageRequest);
 
     var matches = resultString.match(/Analysis Status: (\w+)\W+/);
     if (matches && matches.length > 1) {
