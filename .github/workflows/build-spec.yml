@@ -10,6 +10,6 @@ jobs:
     name: Build Artifact
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/typescript-action@v1
+    - uses: actions/checkout@v1
     - name: Compile Typescript
       run: tsc
