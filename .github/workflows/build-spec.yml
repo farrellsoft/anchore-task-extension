@@ -20,15 +20,15 @@ jobs:
     - name: Compile Typescript
       run: tsc
 
-    - name: Prepare Deployment Directory
-      run: |
-        mkdir deployment
-        mv buildAndReleaseTask/dist deployment/buildAndReleaseTask
-        cp buildAndReleaseTask/task.json deployment/buildAndReleaseTask
-        cp vss-extension.json deployment
+    #- name: Prepare Deployment Directory
+    #  run: |
+    #    mkdir deployment
+    #    mv buildAndReleaseTask/dist deployment/buildAndReleaseTask
+    #    cp buildAndReleaseTask/task.json deployment/buildAndReleaseTask
+    #    cp vss-extension.json deployment
 
     - name: Validate Structure (debug)
       run: |
         ls -la
-        ls -la deployment
-        ls -la deployment/buildAndReleaseTask
+        #ls -la deployment
+        #ls -la deployment/buildAndReleaseTask
