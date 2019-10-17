@@ -18,13 +18,10 @@ jobs:
         npm install
 
     - name: Compile Typescript
-      run: |
-        ls -la
-        tsc
+      run: tsc
 
     - name: Prepare Deployment Directory
       run: |
-        cd ..
         mkdir deployment
         mv buildAndReleaseTask/dist deployment/buildAndReleaseTask
         cp buildAndReleaseTask/task.json deployment/buildAndReleaseTask
