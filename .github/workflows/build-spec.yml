@@ -12,11 +12,17 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+    - name: Restore Node modules
+      run: |
+        cd buildAndReleaseTask
+        npm install
+
     - name: Compile Typescript
-      run: tsc --build buildAndReleaseTask/tsconfig.json
+      run: tsc
 
     - name: Prepare Deployment Directory
       run: |
+        cd ..
         mkdir deployment
         mv buildAndReleaseTask/dist deployment/buildAndReleaseTask
         cp buildAndReleaseTask/task.json deployment/buildAndReleaseTask
