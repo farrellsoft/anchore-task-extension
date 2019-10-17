@@ -8,12 +8,18 @@
   "category": "Utility",
   "author": "Farrellsoft",
   "version": {
-    "Major": 0,
-    "Minor": 1,
+    "Major": 1,
+    "Minor": 0,
     "Patch": 0
   },
   "visibility": ["Build", "Release"],
   "instanceNameFormat": "Analyzing Image with Anchore",
+  "groups": [
+    {
+      "name": "vuln",
+      "displayName": "Vulnerability Check"
+    }
+  ],
   "inputs": [
     {
       "name": "engineUrl",
@@ -48,14 +54,18 @@
       "type": "boolean",
       "label": "Execute Vulnerability Scan",
       "required": false,
-      "helpMarkDown": "Indicate whether or not to produce a vulernability report for the scanned image"
+      "defaultValue": "false",
+      "helpMarkDown": "Perform a vulernability scan for the image",
+      "groupName": "vuln"
     },
     {
       "name": "minHighAllowed",
       "type": "string",
-      "label": "Minimum High Vulnerabilities allowed",
+      "label": "Min High allowed",
+      "defaultValue": "0",
       "required": false,
-      "helpMarkDown": "The minimum number of high vulnerabilities allowed"
+      "helpMarkDown": "The minimum number of high vulnerabilities allowed",
+      "groupName": "vuln"
     }
   ],
   "execution": {
