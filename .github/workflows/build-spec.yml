@@ -1,4 +1,4 @@
-name: CI
+name: Deploy Anchore Task Version
 
 on:
   push:
@@ -14,4 +14,4 @@ jobs:
     - name: Compile Typescript
       run: tsc
     - name: Install jq
-      run: apt-get install jq
+      run: sudo apt-get install jq
