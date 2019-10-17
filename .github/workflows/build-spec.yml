@@ -24,12 +24,12 @@ jobs:
       run: |
         mkdir deployment
         mv buildAndReleaseTask/dist deployment/buildAndReleaseTask
-    #    cp buildAndReleaseTask/task.json deployment/buildAndReleaseTask
-    #    cp vss-extension.json deployment
+        cp buildAndReleaseTask/task.json deployment/buildAndReleaseTask
+        cp vss-extension.json deployment
 
     - name: Validate Structure (debug)
       run: |
         ls -la
         ls -la buildAndReleaseTask
-        #ls -la deployment
+        ls -la deployment
         #ls -la deployment/buildAndReleaseTask
