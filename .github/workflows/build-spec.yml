@@ -12,6 +12,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Compile Typescript
-      run: tsc
-    - name: Install jq
-      run: sudo apt-get install jq
+      run: tsc --outDir deployment
+    - name: Update Extension Version
+      run: ls -la
