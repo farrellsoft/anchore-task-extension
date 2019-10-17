@@ -7,7 +7,7 @@ import { TaskInput } from './TaskInput';
 import { VulnScan } from './VulnScan';
 import { VulnSeverity } from './enum';
 
-function run() {
+async function run() {
   var input: TaskInput = new TaskInput();
   
   // does anchor-cli exist
@@ -28,7 +28,7 @@ function run() {
     service.addImage(input.getImageName());
 
     // analyze the image
-    var imageAnalyzed: boolean = analyze_image(service, input.getImageName())
+    var imageAnalyzed: boolean = await analyze_image(service, input.getImageName())
     if (!imageAnalyzed) {
       task.setResult(task.TaskResult.Failed, "Image failed to be analyzed");
       return;
