@@ -7,6 +7,9 @@ on:
 
 jobs:
   build:
+    name: Build Artifact
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/typescript-action@v1
+    - name: Compile Typescript
+      run: tsc
