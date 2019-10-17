@@ -3,7 +3,7 @@ import { AnchoreService } from "./AnchoreService";
 const MAX_ATTEMPTS: number = 100;
 const ANALYZED_STATUS_COMPLETED = "analyzed";
 
-export default function analyzeImage(sdk: AnchoreService, imageRequest: string | undefined): boolean {
+export default async function analyzeImage(sdk: AnchoreService, imageRequest: string | undefined): Promise<boolean> {
   var current_attempt = 1;
   var analysisComplete: boolean = false;
   do {
@@ -19,7 +19,12 @@ export default function analyzeImage(sdk: AnchoreService, imageRequest: string |
       }
     }
     current_attempt++;
+    await delay(5);
   } while (current_attempt <= MAX_ATTEMPTS);
 
   return analysisComplete;
+}
+
+function delay(msCount: number): Promise<any> {
+  return new Promise( resolve => setTimeout(resolve, msCount * 1000) );
 }
