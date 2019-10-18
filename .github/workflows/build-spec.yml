@@ -20,6 +20,7 @@ jobs:
     - name: Compile Typescript
       run: tsc --build buildAndReleaseTask/tsconfig.json
 
+  prepare:
     - name: Prepare Deployment Directory
       run: |
         mkdir deployment
@@ -27,9 +28,15 @@ jobs:
         cp buildAndReleaseTask/task.json deployment/buildAndReleaseTask
         cp vss-extension.json deployment
 
-    - name: Validate Structure (debug)
+    - name: Update Extension Version
       run: |
-        ls -la
-        ls -la buildAndReleaseTask
-        ls -la deployment
-        #ls -la deployment/buildAndReleaseTask
+        cd deployment
+
+  #deploy:
+    #- name: Create VSIX
+    #  run: |
+    #    npm install -g tfx-cli
+    #    cd deployment
+    #    tfx extension create --manifest-globs vss-extension.json
+    #
+    #- name: Upload VSIX Artifact
