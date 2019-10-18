@@ -2,8 +2,7 @@ name: Deploy Anchore Task Version
 
 on:
   push:
-    branches:
-      - master
+    tags: v*
 
 jobs:
   build:
