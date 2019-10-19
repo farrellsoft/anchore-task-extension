@@ -4,6 +4,8 @@ const MAX_ATTEMPTS: number = 100;
 const ANALYZED_STATUS_COMPLETED = "analyzed";
 
 export default async function analyzeImage(sdk: AnchoreService, imageRequest: string | undefined): Promise<boolean> {
+  console.log('beginning analysis');
+
   var current_attempt = 1;
   var analysisComplete: boolean = false;
   do {

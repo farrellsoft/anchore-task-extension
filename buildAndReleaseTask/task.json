@@ -9,8 +9,8 @@
   "author": "Farrellsoft",
   "version": {
     "Major": 1,
-    "Minor": 0,
-    "Patch": 1
+    "Minor": 1,
+    "Patch": 0
   },
   "visibility": ["Build", "Release"],
   "instanceNameFormat": "Analyzing Image with Anchore",
@@ -70,7 +70,7 @@
   ],
   "execution": {
     "Node": {
-      "target": "dist/index.js"
+      "target": "buildAndReleaseTask/index.js"
     }
   }
 }
