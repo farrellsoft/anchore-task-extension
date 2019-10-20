@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "anchore-task",
   "name": "Anchore Image Scanning",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "publisher": "farrellsoft",
   "targets": [
     {
