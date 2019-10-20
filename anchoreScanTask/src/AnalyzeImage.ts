@@ -4,12 +4,10 @@ const MAX_ATTEMPTS: number = 100;
 const ANALYZED_STATUS_COMPLETED = "analyzed";
 
 export default async function analyzeImage(sdk: AnchoreService, imageRequest: string | undefined): Promise<boolean> {
-  console.log('beginning analysis');
-
   var current_attempt = 1;
   var analysisComplete: boolean = false;
   do {
-    console.log(`Attempt #${current_attempt}`);
+    console.log(`Checking Status Attempt #${current_attempt}`);
     var resultString: string = sdk.getImageDetailsResults(imageRequest);
 
     var matches = resultString.match(/Analysis Status: (\w+)\W+/);
@@ -21,7 +19,6 @@ export default async function analyzeImage(sdk: AnchoreService, imageRequest: st
       }
     }
     current_attempt++;
-    console.log("delaying for 5s"); 
     await delay(5);
   } while (current_attempt <= MAX_ATTEMPTS);
 
