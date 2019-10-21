@@ -19,9 +19,10 @@ jobs:
       working-directory: anchoreScanTask
       run: tsc
       
-    - name: Create Output Directory
+    - name: Prepare for Publishing
       run: |
         mkdir -p deploy/anchoreScanTask
+        sudo npm install -g tfx-cli
       
     - name: Copy Files for Artifact
       run: |
