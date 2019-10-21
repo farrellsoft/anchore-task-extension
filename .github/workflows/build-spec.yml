@@ -2,7 +2,7 @@ name: Deploy Anchore Task Version
 
 on:
   push:
-    branches: master
+    tags: v*
 
 jobs:
   publish:
@@ -37,7 +37,7 @@ jobs:
       run: tfx extension create --manifest-globs vss-extension.json
       working-directory: deploy/
     
-    - name: List directory contents (debug)
-      run: ls -l
+    - name: Echo Environment (debug)
+      run: echo $GITHUB_REF
       working-directory: deploy/
       
