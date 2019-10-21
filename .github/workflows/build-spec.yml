@@ -18,26 +18,22 @@ jobs:
     - name: Build Distribution
       working-directory: anchoreScanTask
       run: tsc
-  
-  prepare:
-    name: Deploy Prepare
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create Output Directory
-        run: |
-          mkdir -p deploy/anchoreScanTask
       
-      - name: Copy Artifacts
-        run: |
-          cp -r anchoreScanTask/dist deploy/
-          cp -r anchoreScanTask/node_modules deploy/
-          cp -r images deploy/
-          cp anchoreScanTask/icon.png deploy/anchoreScanbTask/
-          cp anchoreScanTask/task.json deploy/anchoreScanTask/
-          cp vss-extension.json deploy/
+    - name: Create Output Directory
+      run: |
+        mkdir -p deploy/anchoreScanTask
+      
+    - name: Copy Artifacts
+      run: |
+        cp -r anchoreScanTask/dist deploy/
+        cp -r anchoreScanTask/node_modules deploy/
+        cp -r images deploy/
+        cp anchoreScanTask/icon.png deploy/anchoreScanbTask/
+        cp anchoreScanTask/task.json deploy/anchoreScanTask/
+        cp vss-extension.json deploy/
           
-      - name: (debug) List all contents
-        run: |
-          ls -l deploy
-          ls -l deploy/anchoreScanTask
+    - name: (debug) List all contents
+      run: |
+        ls -l deploy
+        ls -l deploy/anchoreScanTask
       
