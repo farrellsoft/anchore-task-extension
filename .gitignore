@@ -5,3 +5,5 @@ deploy
 
 *.vsix
 *.js
+
+!scripts/*.js
