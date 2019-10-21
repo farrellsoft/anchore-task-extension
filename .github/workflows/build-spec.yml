@@ -5,8 +5,8 @@ on:
     branches: master
 
 jobs:
-  build:
-    name: Build Artifact
+  publish:
+    name: Publish Artifact
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -23,7 +23,7 @@ jobs:
       run: |
         mkdir -p deploy/anchoreScanTask
       
-    - name: Copy Artifacts
+    - name: Copy Files for Artifact
       run: |
         cp -r anchoreScanTask/dist deploy/anchoreScanTask/
         cp -r anchoreScanTask/node_modules deploy/anchoreScanTask/
@@ -32,8 +32,11 @@ jobs:
         cp ./anchoreScanTask/task.json deploy/anchoreScanTask/
         cp ./vss-extension.json deploy/
           
-    - name: (debug) List all contents
-      run: |
-        ls -l deploy
-        ls -l deploy/anchoreScanTask
+    - name: Create Artifact
+      run: tfx extension create --manifest-globs vss-extension.json
+      working-directory: deploy/
+    
+    - name: List directory contents (debug)
+      run: ls -l
+      working-directory: deploy/
       
