@@ -34,7 +34,7 @@ jobs:
         cp ./vss-extension.json deploy/
     
     - name: Version Artifact
-      run: node scripts/version_glob.js $GITHUB_REF deply/vss-extension.json
+      run: node scripts/version_glob.js $GITHUB_REF deploy/vss-extension.json
           
     - name: Create Artifact
       run: tfx extension create --manifest-globs vss-extension.json
