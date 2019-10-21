@@ -25,8 +25,8 @@ jobs:
       
     - name: Copy Artifacts
       run: |
-        cp -r ./anchoreScanTask/dist deploy/dist
-        cp -r ./anchoreScanTask/node_modules deploy/node_modules
+        cp -r anchoreScanTask/dist deploy/anchoreScanTask/
+        cp -r anchoreScanTask/node_modules deploy/anchoreScanTask/
         cp -r ./images deploy/images
         cp ./anchoreScanTask/icon.png deploy/anchoreScanTask/
         cp ./anchoreScanTask/task.json deploy/anchoreScanTask/
