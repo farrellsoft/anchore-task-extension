@@ -32,12 +32,11 @@ jobs:
         cp ./anchoreScanTask/icon.png deploy/anchoreScanTask/
         cp ./anchoreScanTask/task.json deploy/anchoreScanTask/
         cp ./vss-extension.json deploy/
+    
+    - name: Version Artifact
+      run: node scripts/version_glob.js $GITHUB_REF deply/vss-extension.json
           
     - name: Create Artifact
       run: tfx extension create --manifest-globs vss-extension.json
-      working-directory: deploy/
-    
-    - name: Echo Environment (debug)
-      run: echo $GITHUB_REF
       working-directory: deploy/
       
