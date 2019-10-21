@@ -2,7 +2,7 @@ name: Deploy Anchore Task Version
 
 on:
   push:
-    tags: v*
+    branches: master
 
 jobs:
   build:
@@ -10,32 +10,34 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-
-    - name: Restore Node modules
-      run: |
-        cd buildAndReleaseTask
-        npm install
-
-    - name: Compile Typescript
-      run: tsc --build buildAndReleaseTask/tsconfig.json
-
+    
+    - name: Restore Dependencies
+      working-directory: anchoreScanTask
+      run: npm install
+        
+    - name: Build Distribution
+      working-directory: anchoreScanTask
+      run: tsc
+  
   prepare:
-    - name: Prepare Deployment Directory
-      run: |
-        mkdir deployment
-        mv buildAndReleaseTask/dist deployment/buildAndReleaseTask
-        cp buildAndReleaseTask/task.json deployment/buildAndReleaseTask
-        cp vss-extension.json deployment
-
-    - name: Update Extension Version
-      run: |
-        cd deployment
-
-  #deploy:
-    #- name: Create VSIX
-    #  run: |
-    #    npm install -g tfx-cli
-    #    cd deployment
-    #    tfx extension create --manifest-globs vss-extension.json
-    #
-    #- name: Upload VSIX Artifact
+    name: Deploy Prepare
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Output Directory
+        run: |
+          mkdir -p deploy/anchoreScanTask
+      
+      - name: Copy Artifacts
+        run: |
+          cp -r anchoreScanTask/dist deploy/
+          cp -r anchoreScanTask/node_modules deploy/
+          cp -r images deploy/
+          cp anchoreScanTask/icon.png deploy/anchoreScanbTask/
+          cp anchoreScanTask/task.json deploy/anchoreScanTask/
+          cp vss-extension.json deploy/
+          
+      - name: (debug) List all contents
+        run: |
+          ls -l deploy
+          ls -l deploy/anchoreScanTask
+      
