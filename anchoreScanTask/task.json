@@ -9,7 +9,7 @@
   "author": "Farrellsoft",
   "version": {
     "Major": 1,
-    "Minor": 2,
+    "Minor": 0,
     "Patch": 0
   },
   "visibility": ["Build", "Release"],
@@ -56,6 +56,24 @@
       "required": false,
       "defaultValue": "false",
       "helpMarkDown": "Perform a vulernability scan for the image",
+      "groupName": "vuln"
+    },
+    {
+      "name": "minHighAllowed",
+      "type": "string",
+      "label": "Min High allowed",
+      "defaultValue": "0",
+      "required": false,
+      "helpMarkDown": "The minimum number of high vulnerabilities allowed",
+      "groupName": "vuln"
+    },
+    {
+      "name": "minHighAllowed",
+      "type": "string",
+      "label": "Min High allowed",
+      "defaultValue": "0",
+      "required": false,
+      "helpMarkDown": "The minimum number of high vulnerabilities allowed",
       "groupName": "vuln"
     },
     {
