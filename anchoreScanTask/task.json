@@ -10,7 +10,7 @@
   "version": {
     "Major": 1,
     "Minor": 2,
-    "Patch": 2
+    "Patch": 3
   },
   "visibility": ["Build", "Release"],
   "instanceNameFormat": "Analyzing Image with Anchore",
@@ -62,46 +62,37 @@
       "name": "minHighAllowed",
       "type": "string",
       "label": "Min High allowed",
-      "defaultValue": "0",
       "required": false,
       "helpMarkDown": "The minimum number of high vulnerabilities allowed",
-      "groupName": "vuln"
-    },
-    {
-      "name": "minHighAllowed",
-      "type": "string",
-      "label": "Min High allowed",
-      "defaultValue": "0",
-      "required": false,
-      "helpMarkDown": "The minimum number of high vulnerabilities allowed",
-      "groupName": "vuln"
+      "groupName": "vuln",
+      "visibleRule": "doVulnScan == true"
     },
     {
       "name": "minMedAllowed",
       "type": "string",
       "label": "Min Medium allowed",
-      "defaultValue": "0",
       "required": false,
       "helpMarkDown": "The minimum number of medium vulnerabilities allowed",
-      "groupName": "vuln"
+      "groupName": "vuln",
+      "visibleRule": "doVulnScan == true"
     },
     {
       "name": "minLowAllowed",
       "type": "string",
       "label": "Min Low allowed",
-      "defaultValue": "0",
       "required": false,
       "helpMarkDown": "The minimum number of low vulnerabilities allowed",
-      "groupName": "vuln"
+      "groupName": "vuln",
+      "visibleRule": "doVulnScan == true"
     },
     {
       "name": "minNegAllowed",
       "type": "string",
       "label": "Min Negligible allowed",
-      "defaultValue": "0",
       "required": false,
       "helpMarkDown": "The minimum number of neglibile vulnerabilities allowed",
-      "groupName": "vuln"
+      "groupName": "vuln",
+      "visibleRule": "doVulnScan == true"
     }
   ],
   "execution": {
