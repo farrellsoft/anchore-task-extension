@@ -37,6 +37,6 @@ jobs:
       run: node scripts/version_glob.js $GITHUB_REF deploy/vss-extension.json
       
     - name: Publish Artifact
-      run: tfx extension publish --manifest-globs vss-extension.json --share-with farrellsoft
+      run: tfx extension publish --manifest-globs vss-extension.json --share-with farrellsoft -t ${{ secrets.MARKETPLACE_TOKEN }}
       working-directory: deploy/
       
