@@ -36,12 +36,31 @@ async function run() {
 
     // do we need to do a vulnerability scan
     if (input.getExecuteVulnScan()) {
+      console.log("Performing Vulnerability Checks");
       var vulnScan: VulnScan = new VulnScan(input, service);
       vulnScan.executeScan();
 
       const highCount: Number = vulnScan.getCount(VulnSeverity.HIGH);
-      if (highCount > input.getMinimumHighCount()) {
+      if (highCount > input.getMinimumHighCount() && input.getMinimumHighCount() >= 0) {
         task.setResult(task.TaskResult.Failed, "Scanned image has too many high vulnerabilities");
+        return;
+      }
+
+      const mediumCount: Number = vulnScan.getCount(VulnSeverity.MEDIUM);
+      if (mediumCount > input.getMinimumMediumCount() && input.getMinimumMediumCount() >= 0) {
+        task.setResult(task.TaskResult.Failed, "Scanned image has too many medium vulnerabilities");
+        return;
+      }
+
+      const lowCount: Number = vulnScan.getCount(VulnSeverity.LOW);
+      if (lowCount > input.getMinimumLowCount() && input.getMinimumLowCount() >= 0) {
+        task.setResult(task.TaskResult.Failed, "Scanned image has too many low vulnerabilities");
+        return;
+      }
+
+      const negligibleCount: Number = vulnScan.getCount(VulnSeverity.NEGLIGIBLE);
+      if (negligibleCount > input.getMinimumNegligibleCount() && input.getMinimumNegligibleCount() >= 0) {
+        task.setResult(task.TaskResult.Failed, "Scanned image has too many neglibile vulnerabilities");
         return;
       }
     }
