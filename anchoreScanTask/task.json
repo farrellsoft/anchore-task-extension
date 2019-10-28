@@ -77,12 +77,30 @@
       "groupName": "vuln"
     },
     {
-      "name": "minHighAllowed",
+      "name": "minMedAllowed",
       "type": "string",
-      "label": "Min High allowed",
+      "label": "Min Medium allowed",
       "defaultValue": "0",
       "required": false,
-      "helpMarkDown": "The minimum number of high vulnerabilities allowed",
+      "helpMarkDown": "The minimum number of medium vulnerabilities allowed",
+      "groupName": "vuln"
+    },
+    {
+      "name": "minLowAllowed",
+      "type": "string",
+      "label": "Min Low allowed",
+      "defaultValue": "0",
+      "required": false,
+      "helpMarkDown": "The minimum number of low vulnerabilities allowed",
+      "groupName": "vuln"
+    },
+    {
+      "name": "minNegAllowed",
+      "type": "string",
+      "label": "Min Negligible allowed",
+      "defaultValue": "0",
+      "required": false,
+      "helpMarkDown": "The minimum number of neglibile vulnerabilities allowed",
       "groupName": "vuln"
     }
   ],

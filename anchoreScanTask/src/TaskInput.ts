@@ -52,14 +52,50 @@ export class TaskInput {
   }
 
   getMinimumHighCount(): number {
-    const minHighVulnAllowedRaw: string | undefined = task.getInput("minHighAllowed", false);
-    if (minHighVulnAllowedRaw === undefined)
-      return 0;
+    const minAllowedRaw: string | undefined = task.getInput("minHighAllowed", false);
+    if (minAllowedRaw === undefined)
+      return -1;
 
-    var parsedValue = Number(minHighVulnAllowedRaw);
+    var parsedValue = Number(minAllowedRaw);
     if (parsedValue === NaN)
       throw new Error("The given value for Min High Vulnerability allowed is not a number");
     
+    return parsedValue;
+  }
+
+  getMinimumMediumCount(): number {
+    const minAllowedRaw: string | undefined = task.getInput("minMedAllowed", false);
+    if (minAllowedRaw === undefined)
+      return -1;
+
+    var parsedValue = Number(minAllowedRaw);
+    if (parsedValue === NaN)
+      throw new Error("The given value for Min Med Vulnerability allowed is not a number");
+
+    return parsedValue;
+  }
+
+  getMinimumLowCount(): number {
+    const minAllowedRaw: string | undefined = task.getInput("minLowAllowed", false);
+    if (minAllowedRaw === undefined)
+      return -1;
+
+    var parsedValue = Number(minAllowedRaw);
+    if (parsedValue === NaN)
+      throw new Error("The given value for Min Low Vulnerability allowed is not a number");
+
+    return parsedValue;
+  }
+
+  getMinimumNegligibleCount(): number {
+    const minAllowedRaw: string | undefined = task.getInput("minNegAllowed", false);
+    if (minAllowedRaw === undefined)
+      return -1;
+
+    var parsedValue = Number(minAllowedRaw);
+    if (parsedValue === NaN)
+      throw new Error("The given value for Min Negligible Vulnerability allowed is not a number");
+
     return parsedValue;
   }
 }
