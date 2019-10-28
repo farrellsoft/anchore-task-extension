@@ -2,8 +2,8 @@
   "manifestVersion": 1,
   "id": "anchore-task",
   "name": "Anchore Image Scanning",
-  "version": "1.2.0",
-  "publisher": "farrellsoft",
+  "version": "1.0.0",
+  "publisher": "Farrellsoft",
   "targets": [
     {
       "id": "Microsoft.VisualStudio.Services"
