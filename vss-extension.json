@@ -4,6 +4,9 @@
   "name": "Anchore Image Scanning",
   "version": "1.0.0",
   "publisher": "Farrellsoft",
+  "galleryFlags": [
+    "Preview"
+  ],
   "targets": [
     {
       "id": "Microsoft.VisualStudio.Services"
