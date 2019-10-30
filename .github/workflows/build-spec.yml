@@ -32,6 +32,8 @@ jobs:
         cp ./anchoreScanTask/icon.png deploy/anchoreScanTask/
         cp ./anchoreScanTask/task.json deploy/anchoreScanTask/
         cp ./vss-extension.json deploy/
+        cp ./README.md deploy/
+        cp ./eula.md deploy/
     
     - name: Version Artifact
       run: node scripts/version_glob.js $GITHUB_REF deploy/vss-extension.json
