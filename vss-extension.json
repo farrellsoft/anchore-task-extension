@@ -45,7 +45,5 @@
     "type": "git",
     "uri": "https://github.com/xximjasonxx/anchore-task-extension"
   },
-  "galleryFlags": [
-    "Preview"
-  ]
+  "public": true
 }
