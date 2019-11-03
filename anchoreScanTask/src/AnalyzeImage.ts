@@ -19,6 +19,7 @@ export default async function analyzeImage(sdk: AnchoreService, imageRequest: st
       }
     }
     current_attempt++;
+
     await delay(5);
   } while (current_attempt <= MAX_ATTEMPTS);
 

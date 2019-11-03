@@ -9,8 +9,8 @@
   "author": "Farrellsoft",
   "version": {
     "Major": 1,
-    "Minor": 2,
-    "Patch": 3
+    "Minor": 3,
+    "Patch": 0
   },
   "visibility": ["Build", "Release"],
   "instanceNameFormat": "Analyzing Image with Anchore",
@@ -91,6 +91,15 @@
       "label": "Min Negligible allowed",
       "required": false,
       "helpMarkDown": "The minimum number of neglibile vulnerabilities allowed",
+      "groupName": "vuln",
+      "visibleRule": "doVulnScan == true"
+    },
+    {
+      "name": "exportVulnScan",
+      "type": "boolean",
+      "label": "Vuln Scan Export Path",
+      "required": false,
+      "helpMarkDown": "Defaults to Artifact Directory",
       "groupName": "vuln",
       "visibleRule": "doVulnScan == true"
     }
