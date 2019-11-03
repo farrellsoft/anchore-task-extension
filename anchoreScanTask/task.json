@@ -10,7 +10,7 @@
   "version": {
     "Major": 1,
     "Minor": 3,
-    "Patch": 2
+    "Patch": 3
   },
   "visibility": ["Build", "Release"],
   "instanceNameFormat": "Analyzing Image with Anchore",
@@ -101,7 +101,8 @@
       "required": false,
       "helpMarkDown": "Defaults to Artifact Directory",
       "groupName": "vuln",
-      "visibleRule": "doVulnScan == true"
+      "visibleRule": "doVulnScan == true",
+      "defaultValue": "$(Build.ArtifactStagingDirectory)"
     }
   ],
   "execution": {

@@ -17,7 +17,6 @@ export class AnchoreService {
   }
 
   getImageDetailsResults(imageRequest: string | undefined): string {
-    console.log(`Executing anchore-cli --u ${ this.username } --p ${ this.password } --url ${ this.anchoreUrl } image get ${ imageRequest }`);
     var buffer: Buffer = cp.execSync(`anchore-cli --u ${this.username} --p ${this.password} --url ${this.anchoreUrl} image get ${imageRequest}`);
     return buffer.toString();
   }
