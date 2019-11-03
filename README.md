@@ -45,6 +45,10 @@ The minimum number of Low Vulnerabilities to allow before the Task fails. If lef
 
 The minimum number of Negligible Vulnerabilities to allow before the Task fails. If left empty, no limit is enforced
 
+**Vuln Report Export Path**
+
+Indicates where the task should output the results of the Vulnerability Scan - HTML report
+
 ## How the Task Works
 
 #### Prerequisites
