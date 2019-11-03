@@ -1,5 +1,6 @@
 import { VulnScanItem } from "../interfaces/VulnScanning";
 import fs from 'fs';
+import path from 'path';
 
 export class VulnScanHtmlExporter {
     constructor(
@@ -11,7 +12,8 @@ export class VulnScanHtmlExporter {
             this.buildResultsTable() +
             this.getHtmlEnd();
 
-        fs.writeFileSync(filePath, resultString);
+        console.log(`Writing out HTML contents to ${filePath}/vuln_report.html`);
+        fs.writeFileSync(path.join(filePath, 'vuln_report.html'), resultString);
     }
 
     private getHtmlStart(): string {
@@ -23,7 +25,7 @@ export class VulnScanHtmlExporter {
 
                 <body>
                     <h2>Anchore Vulnerability Scan Results</h2>
-                    <table>
+                    <table cellspacing="5" border="1">
                         <thead>
                             <tr>
                                 <th>Vulnerability ID</th>

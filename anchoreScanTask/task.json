@@ -9,8 +9,8 @@
   "author": "Farrellsoft",
   "version": {
     "Major": 1,
-    "Minor": 2,
-    "Patch": 3
+    "Minor": 3,
+    "Patch": 0
   },
   "visibility": ["Build", "Release"],
   "instanceNameFormat": "Analyzing Image with Anchore",
