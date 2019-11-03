@@ -10,7 +10,7 @@
   "version": {
     "Major": 1,
     "Minor": 3,
-    "Patch": 1
+    "Patch": 2
   },
   "visibility": ["Build", "Release"],
   "instanceNameFormat": "Analyzing Image with Anchore",
@@ -95,7 +95,7 @@
       "visibleRule": "doVulnScan == true"
     },
     {
-      "name": "exportVulnScan",
+      "name": "exportVulnScanPath",
       "type": "string",
       "label": "Vuln Scan Export Path",
       "required": false,
