@@ -93,6 +93,15 @@
       "helpMarkDown": "The minimum number of neglibile vulnerabilities allowed",
       "groupName": "vuln",
       "visibleRule": "doVulnScan == true"
+    },
+    {
+      "name": "exportVulnScan",
+      "type": "boolean",
+      "label": "Vuln Scan Export Path",
+      "required": false,
+      "helpMarkDown": "Defaults to Artifact Directory",
+      "groupName": "vuln",
+      "visibleRule": "doVulnScan == true"
     }
   ],
   "execution": {

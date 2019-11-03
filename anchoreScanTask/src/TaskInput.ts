@@ -98,4 +98,12 @@ export class TaskInput {
 
     return parsedValue;
   }
+
+  getVulnScanExportPath(): string {
+    const exportScanPath: string | undefined = task.getInput("exportVulnScanPath", false);
+    if (exportScanPath === undefined)
+      return task.getVariable("Build.ArtifactStagingDirectory") || "";
+
+    return exportScanPath;
+  }
 }

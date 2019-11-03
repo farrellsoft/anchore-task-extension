@@ -2,6 +2,7 @@ import { TaskInput } from "./TaskInput";
 import { AnchoreService } from "./AnchoreService";
 import { VulnScanItem, VulnScanRoot } from "./interfaces/VulnScanning";
 import { VulnSeverity } from './enum';
+import { VulnScanHtmlExporter } from "./exporters/VulnScanHtmlExporter";
 
 export class VulnScan {
     private scanResults: VulnScanItem[];
@@ -26,5 +27,10 @@ export class VulnScan {
         });
 
         return results.length;
+    }
+
+    saveHtmlReport(filePath: string): void {
+        var exporter = new VulnScanHtmlExporter(this.scanResults);
+        exporter.saveFile(filePath);
     }
 }

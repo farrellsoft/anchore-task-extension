@@ -63,6 +63,10 @@ async function run() {
         task.setResult(task.TaskResult.Failed, "Scanned image has too many neglibile vulnerabilities");
         return;
       }
+
+      if (input.getVulnScanExportPath() !== "") {
+        vulnScan.saveHtmlReport(input.getVulnScanExportPath());
+      }
     }
 
     console.log("Image analysis successful");
