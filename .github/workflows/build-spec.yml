@@ -28,7 +28,7 @@ jobs:
       run: |
         cp -r anchoreScanTask/dist deploy/anchoreScanTask/
         cp -r anchoreScanTask/node_modules deploy/anchoreScanTask/
-        cp -r ./images deploy/images
+        cp -r ./images deploy
         cp ./anchoreScanTask/icon.png deploy/anchoreScanTask/
         cp ./anchoreScanTask/task.json deploy/anchoreScanTask/
         cp ./vss-extension.json deploy/
