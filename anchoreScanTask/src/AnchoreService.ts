@@ -25,4 +25,9 @@ export class AnchoreService {
     var buffer: Buffer = cp.execSync(`anchore-cli --json --u ${this.username} --p ${this.password} --url ${this.anchoreUrl} image vuln ${imageRequest} all`);
     return buffer.toString();
   }
+
+  getPolicyEvaluateResults(imageRequest: string | undefined): string {
+    var buffer: Buffer = cp.execSync(`anchore-cli --u ${this.username} --p ${this.password} --url ${this.anchoreUrl} evaluate check ${imageRequest}`);
+    return buffer.toString();
+  }
 }
