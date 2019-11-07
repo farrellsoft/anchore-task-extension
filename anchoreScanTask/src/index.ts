@@ -5,7 +5,8 @@ import { AnchoreService } from "./AnchoreService";
 import analyze_image from './AnalyzeImage';
 import { TaskInput } from './TaskInput';
 import { VulnScan } from './VulnScan';
-import { VulnSeverity } from './enum';
+import { VulnSeverity, PolicyCheckStatus } from './enum';
+import { PolicyCheckResult } from "./models/PolicyCheckResult";
 
 async function run() {
   var input: TaskInput = new TaskInput();
@@ -34,7 +35,16 @@ async function run() {
       return;
     }
 
-    // do we need to do a vulnerability scan
+    if (input.getExecutePolicyScan()) {
+      console.log("Performing Policy Scan");
+      var rawResult = service.getPolicyEvaluateResults(input.getImageName());
+      var result = new PolicyCheckResult(rawResult);
+      if (result.status == PolicyCheckStatus.FAIL) {
+        task.setResult(task.TaskResult.Failed, 'Image Failed Policy Check');
+        return;
+      }
+    }
+    
     if (input.getExecuteVulnScan()) {
       console.log("Performing Vulnerability Checks");
       var vulnScan: VulnScan = new VulnScan(input, service);
