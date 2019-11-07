@@ -26,8 +26,19 @@ export class AnchoreService {
     return buffer.toString();
   }
 
-  getPolicyEvaluateResults(imageRequest: string | undefined): string {
-    var buffer: Buffer = cp.execSync(`anchore-cli --u ${this.username} --p ${this.password} --url ${this.anchoreUrl} evaluate check ${imageRequest}`);
-    return buffer.toString();
+  getPolicyEvaluateResult(imageRequest: string | undefined): string {
+    try {
+      console.log('service call being made');
+      var buffer: Buffer = cp.execSync(`anchore-cli --u ${this.username} --p ${this.password} --url ${this.anchoreUrl} evaluate check ${imageRequest}`);
+      console.log('buffer return');
+
+      return buffer.toString();
+    }
+    catch (err) {
+      console.log('error encountered');
+      console.log(err);
+      //return err.output[1].toString();
+      return "";
+    }
   }
 }

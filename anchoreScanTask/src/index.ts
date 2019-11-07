@@ -37,7 +37,8 @@ async function run() {
 
     if (input.getExecutePolicyScan()) {
       console.log("Performing Policy Scan");
-      var rawResult = service.getPolicyEvaluateResults(input.getImageName());
+      var rawResult = service.getPolicyEvaluateResult(input.getImageName());
+      console.log('Policy Check Completed');
       var result = new PolicyCheckResult(rawResult);
       if (result.status == PolicyCheckStatus.FAIL) {
         task.setResult(task.TaskResult.Failed, 'Image Failed Policy Check');
@@ -82,7 +83,7 @@ async function run() {
     console.log("Image analysis successful");
   }
   catch (err) {
-    task.setResult(task.TaskResult.Failed, err);
+    task.setResult(task.TaskResult.Failed, 'Error Executing the Scan');
   }
 
   console.log("run completed");
