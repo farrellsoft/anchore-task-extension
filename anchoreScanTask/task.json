@@ -9,8 +9,8 @@
   "author": "Farrellsoft",
   "version": {
     "Major": 1,
-    "Minor": 3,
-    "Patch": 3
+    "Minor": 4,
+    "Patch": 0
   },
   "visibility": ["Build", "Release"],
   "instanceNameFormat": "Analyzing Image with Anchore",
@@ -48,6 +48,14 @@
       "label": "Analyze Image",
       "required": true,
       "helpMarkDown": "The Image to Analyze - must be stored in a registered registry"
+    },
+    {
+      "name": "doPolicyScan",
+      "type": "boolean",
+      "label": "Execute Policy Scan",
+      "required": false,
+      "defaultValue": "false",
+      "helpMarkDown": "Perform a policy scan for the image"
     },
     {
       "name": "doVulnScan",
