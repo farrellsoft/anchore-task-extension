@@ -8,14 +8,13 @@ export class VulnScan {
     private scanResults: VulnScanItem[];
 
     constructor(
-        private taskInput: TaskInput,
         private anchoreService: AnchoreService
     ) {
         this.scanResults = [];
     }
 
     executeScan(): void {
-        var resultJsonString: string = this.anchoreService.getAllImageVulnResults(this.taskInput.getImageName());
+        var resultJsonString: string = this.anchoreService.getAllImageVulnResults(TaskInput.getImageName());
         var parsedResult: VulnScanRoot = JSON.parse(resultJsonString);
 
         this.scanResults = parsedResult.vulnerabilities;

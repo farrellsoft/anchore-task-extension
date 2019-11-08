@@ -2,7 +2,7 @@
 import task = require("azure-pipelines-task-lib");
 
 export class TaskInput {
-  getEngineUrl(): string {
+  static getEngineUrl(): string {
     const anchoreUrl: string | undefined = task.getInput(
       "engineUrl",
       true
@@ -13,7 +13,7 @@ export class TaskInput {
     return anchoreUrl;
   }
 
-  getEngineUser(): string {
+  static getEngineUser(): string {
     const engineUser: string | undefined = task.getInput(
       "engineUser",
       true
@@ -24,7 +24,7 @@ export class TaskInput {
     return engineUser;
   }
 
-  getEnginePassword(): string {
+  static getEnginePassword(): string {
     const enginePassword: string | undefined = task.getInput(
       "enginePassword",
       true
@@ -35,7 +35,7 @@ export class TaskInput {
     return enginePassword;
   }
 
-  getImageName(): string {
+  static getImageName(): string {
     const anchoreImage: string | undefined = task.getInput("imageName", true);
     if (anchoreImage === undefined || anchoreImage.length === 0)
       throw new Error("An image name for analysis must be provided");
@@ -43,19 +43,15 @@ export class TaskInput {
       return anchoreImage;
   }
 
-  getExecutePolicyScan(): boolean {
+  static getExecutePolicyScan(): boolean {
     return task.getBoolInput("doPolicyScan") || false;
   }
 
-  getExecuteVulnScan(): boolean {
-    const executeVulnScan: boolean | undefined = task.getBoolInput("doVulnScan", false);
-    if (executeVulnScan === undefined)
-      return false;
-
-    return executeVulnScan;
+  static getExecuteVulnScan(): boolean {
+    return task.getBoolInput("doVulnScan", false) || false;
   }
 
-  getMinimumHighCount(): number {
+  static getMinimumHighCount(): number {
     const minAllowedRaw: string | undefined = task.getInput("minHighAllowed", false);
     if (minAllowedRaw === undefined)
       return -1;
@@ -67,7 +63,7 @@ export class TaskInput {
     return parsedValue;
   }
 
-  getMinimumMediumCount(): number {
+  static getMinimumMediumCount(): number {
     const minAllowedRaw: string | undefined = task.getInput("minMedAllowed", false);
     if (minAllowedRaw === undefined)
       return -1;
@@ -79,7 +75,7 @@ export class TaskInput {
     return parsedValue;
   }
 
-  getMinimumLowCount(): number {
+  static getMinimumLowCount(): number {
     const minAllowedRaw: string | undefined = task.getInput("minLowAllowed", false);
     if (minAllowedRaw === undefined)
       return -1;
@@ -91,7 +87,7 @@ export class TaskInput {
     return parsedValue;
   }
 
-  getMinimumNegligibleCount(): number {
+  static getMinimumNegligibleCount(): number {
     const minAllowedRaw: string | undefined = task.getInput("minNegAllowed", false);
     if (minAllowedRaw === undefined)
       return -1;
@@ -103,7 +99,7 @@ export class TaskInput {
     return parsedValue;
   }
 
-  getVulnScanExportPath(): string {
+  static getVulnScanExportPath(): string {
     const exportScanPath: string | undefined = task.getInput("exportVulnScanPath", false);
     if (exportScanPath === undefined)
       return task.getVariable("Build.ArtifactStagingDirectory") || "";
