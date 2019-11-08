@@ -27,18 +27,19 @@ export class AnchoreService {
   }
 
   getPolicyEvaluateResult(imageRequest: string | undefined): string {
+    // special note: anchore-cli will fail as a process when the policy scan fails. This doesnt manifest at the command
+    // line but it will happen here. So we want to check that we do not have an error before proceeding
     try {
-      console.log('service call being made');
       var buffer: Buffer = cp.execSync(`anchore-cli --u ${this.username} --p ${this.password} --url ${this.anchoreUrl} evaluate check ${imageRequest}`);
-      console.log('buffer return');
-
       return buffer.toString();
     }
     catch (err) {
-      console.log('error encountered');
-      console.log(err);
-      //return err.output[1].toString();
-      return "";
+      if (err.stderr != null && err.stderr.toString().length > 0) {
+        console.log(`'${err.stderr.toString()}'`);
+        throw err;
+      }
+
+      return err.output[1].toString();
     }
   }
 }

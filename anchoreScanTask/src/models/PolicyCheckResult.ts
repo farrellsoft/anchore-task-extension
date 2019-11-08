@@ -2,8 +2,6 @@ import { PolicyCheckStatus } from "../enum";
 
 export class PolicyCheckResult {
     constructor(private rawStringResults: string) {
-        console.log('ctx');
-        console.log(this.rawStringResults);
     }
 
     get status(): PolicyCheckStatus {
