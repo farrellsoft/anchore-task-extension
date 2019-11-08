@@ -3,10 +3,9 @@ import commandExists from "command-exists";
 import { AnchoreService } from "./services/AnchoreService";
 
 import { TaskInput } from './TaskInput';
-import { VulnScan } from './VulnScan';
 import { VulnSeverity, PolicyCheckStatus } from './enum';
-import { PolicyCheckResult } from "./models/PolicyCheckResult";
-import { AnalyzeImageService } from "./services/AnalyzeImage";
+import { AnalyzeImageService } from "./services/AnalyzeImageService";
+import { VulnerabilityScanService } from "./services/VulnerabilityScanService";
 
 async function run() {
   // does anchor-cli exist
@@ -36,9 +35,9 @@ async function run() {
 
     if (TaskInput.getExecutePolicyScan()) {
       console.log("Performing Policy Scan");
-      var rawResult = service.getPolicyEvaluateResult(TaskInput.getImageName());
-      console.log('Policy Check Completed');
-      var result = new PolicyCheckResult(rawResult);
+
+
+      var result = service.getPolicyEvaluateResult(TaskInput.getImageName());
       if (result.status == PolicyCheckStatus.FAIL) {
         task.setResult(task.TaskResult.Failed, 'Image Failed Policy Check');
         return;
@@ -46,36 +45,36 @@ async function run() {
     }
     
     if (TaskInput.getExecuteVulnScan()) {
+      const vulnerabilityScanService = new VulnerabilityScanService(service);
       console.log("Performing Vulnerability Checks");
-      var vulnScan: VulnScan = new VulnScan(service);
-      vulnScan.executeScan();
+      vulnerabilityScanService.executeVulnerabilityScan(TaskInput.getImageName());
 
-      const highCount: Number = vulnScan.getCount(VulnSeverity.HIGH);
+      const highCount: Number = vulnerabilityScanService.getCount(VulnSeverity.HIGH);
       if (highCount > TaskInput.getMinimumHighCount() && TaskInput.getMinimumHighCount() >= 0) {
         task.setResult(task.TaskResult.Failed, "Scanned image has too many high vulnerabilities");
         return;
       }
 
-      const mediumCount: Number = vulnScan.getCount(VulnSeverity.MEDIUM);
+      const mediumCount: Number = vulnerabilityScanService.getCount(VulnSeverity.MEDIUM);
       if (mediumCount > TaskInput.getMinimumMediumCount() && TaskInput.getMinimumMediumCount() >= 0) {
         task.setResult(task.TaskResult.Failed, "Scanned image has too many medium vulnerabilities");
         return;
       }
 
-      const lowCount: Number = vulnScan.getCount(VulnSeverity.LOW);
+      const lowCount: Number = vulnerabilityScanService.getCount(VulnSeverity.LOW);
       if (lowCount > TaskInput.getMinimumLowCount() && TaskInput.getMinimumLowCount() >= 0) {
         task.setResult(task.TaskResult.Failed, "Scanned image has too many low vulnerabilities");
         return;
       }
 
-      const negligibleCount: Number = vulnScan.getCount(VulnSeverity.NEGLIGIBLE);
+      const negligibleCount: Number = vulnerabilityScanService.getCount(VulnSeverity.NEGLIGIBLE);
       if (negligibleCount > TaskInput.getMinimumNegligibleCount() && TaskInput.getMinimumNegligibleCount() >= 0) {
         task.setResult(task.TaskResult.Failed, "Scanned image has too many neglibile vulnerabilities");
         return;
       }
 
       if (TaskInput.getVulnScanExportPath() !== "") {
-        vulnScan.saveHtmlReport(TaskInput.getVulnScanExportPath());
+        vulnerabilityScanService.saveHtmlReport(TaskInput.getVulnScanExportPath());
       }
     }
 
