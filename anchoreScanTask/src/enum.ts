@@ -6,3 +6,8 @@ export enum VulnSeverity {
     LOW = "Low",
     NEGLIGIBLE = "Negligible"
 }
+
+export enum PolicyCheckStatus {
+    PASS = "pass",
+    FAIL = "fail"
+}

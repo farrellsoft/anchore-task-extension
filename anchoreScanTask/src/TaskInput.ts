@@ -43,6 +43,10 @@ export class TaskInput {
       return anchoreImage;
   }
 
+  getExecutePolicyScan(): boolean {
+    return task.getBoolInput("doPolicyScan") || false;
+  }
+
   getExecuteVulnScan(): boolean {
     const executeVulnScan: boolean | undefined = task.getBoolInput("doVulnScan", false);
     if (executeVulnScan === undefined)
