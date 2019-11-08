@@ -12,9 +12,7 @@
   "dependencies": {
     "@types/command-exists": "^1.2.0",
     "azure-pipelines-task-lib": "^2.9.3",
-    "command-exists": "^1.2.8",
-    "inversify": "^5.0.1",
-    "reflect-metadata": "^0.1.13"
+    "command-exists": "^1.2.8"
   },
   "devDependencies": {
     "@types/node": "^12.7.12",
