@@ -1,4 +1,5 @@
 import * as cp from "child_process";
+import { GetImageResult } from "../models/GetImageResult";
 
 export class AnchoreService {
   readonly username: string;
@@ -16,9 +17,12 @@ export class AnchoreService {
     return true;
   }
 
-  getImageDetailsResults(imageRequest: string | undefined): string {
-    var buffer: Buffer = cp.execSync(`anchore-cli --u ${this.username} --p ${this.password} --url ${this.anchoreUrl} image get ${imageRequest}`);
-    return buffer.toString();
+  getImageDetailsResults(imageRequest: string): GetImageResult {
+    const buffer: Buffer = cp.execSync(`anchore-cli --json --u ${this.username} --p ${this.password} --url ${this.anchoreUrl} image get ${imageRequest}`);
+    const jsonObject = buffer.toString();
+    var array = <GetImageResult[]>JSON.parse(jsonObject);
+
+    return array[0];
   }
 
   getAllImageVulnResults(imageRequest: string | undefined): string {

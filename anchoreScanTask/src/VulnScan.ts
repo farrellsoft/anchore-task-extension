@@ -1,5 +1,5 @@
 import { TaskInput } from "./TaskInput";
-import { AnchoreService } from "./AnchoreService";
+import { AnchoreService } from "./services/AnchoreService";
 import { VulnScanItem, VulnScanRoot } from "./interfaces/VulnScanning";
 import { VulnSeverity } from './enum';
 import { VulnScanHtmlExporter } from "./exporters/VulnScanHtmlExporter";
