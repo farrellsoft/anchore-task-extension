@@ -81,11 +81,8 @@ async function run() {
     console.log("Image analysis successful");
   }
   catch (err) {
-    console.log(err);
     task.setResult(task.TaskResult.Failed, 'Error Executing the Scan');
   }
-
-  console.log("run completed");
 }
 
 run();
