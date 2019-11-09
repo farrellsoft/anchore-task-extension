@@ -41,14 +41,17 @@ export class AnchoreService {
       var buffer: Buffer = cp.execSync(`anchore-cli --json --u ${this.username} --p ${this.password} --url ${this.anchoreUrl} evaluate check ${imageRequest}`);
       var jsonObject = JSON.parse(buffer.toString());
 
+      console.log('success case');
       return (<PolicyCheckResult[]>jsonObject)[0];
     }
     catch (err) {
+      console.log('handling error case');
       if (err.stderr != null && err.stderr.toString().length > 0) {
         console.log(`'${err.stderr.toString()}'`);
         throw err;
       }
 
+      console.log(err.output[1].toString());
       var jsonObject = JSON.parse(err.output[1].toString());
       return (<PolicyCheckResult[]>jsonObject)[0];
     }

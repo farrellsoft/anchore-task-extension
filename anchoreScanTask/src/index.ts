@@ -38,6 +38,7 @@ async function run() {
 
 
       var result = service.getPolicyEvaluateResult(TaskInput.getImageName());
+      console.log(result);
       if (result.status == PolicyCheckStatus.FAIL) {
         task.setResult(task.TaskResult.Failed, 'Image Failed Policy Check');
         return;
