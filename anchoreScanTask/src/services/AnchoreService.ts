@@ -39,21 +39,37 @@ export class AnchoreService {
     // line but it will happen here. So we want to check that we do not have an error before proceeding
     try {
       var buffer: Buffer = cp.execSync(`anchore-cli --json --u ${this.username} --p ${this.password} --url ${this.anchoreUrl} evaluate check ${imageRequest}`);
-      var jsonObject = JSON.parse(buffer.toString());
-
-      console.log('success case');
-      return (<PolicyCheckResult[]>jsonObject)[0];
+      return this.getPolicyCheckResult(buffer.toString(), imageRequest);
     }
     catch (err) {
-      console.log('handling error case');
       if (err.stderr != null && err.stderr.toString().length > 0) {
         console.log(`'${err.stderr.toString()}'`);
         throw err;
       }
 
-      console.log(err.output[1].toString());
-      var jsonObject = JSON.parse(err.output[1].toString());
-      return (<PolicyCheckResult[]>jsonObject)[0];
+      return this.getPolicyCheckResult(err.output[1].toString(), imageRequest);
     }
+  }
+
+  private getPolicyCheckResult(evaluateRawOutput: string, imageName: string): PolicyCheckResult {
+    const jsonObject = JSON.parse(evaluateRawOutput);
+    const foundObject = this.findKey(jsonObject, imageName);
+    if (foundObject == null)
+      throw new Error("Could not find target image is policy evaluate response");
+
+    return foundObject[0] as PolicyCheckResult;
+  }
+
+  private findKey(object: any, searchString: string): any {
+    for (const key of Object.keys(object))
+    {
+      if (key.indexOf(searchString) >= 0) {
+        return object[key];
+      }
+
+      return this.findKey(object[key], searchString);
+    }
+
+    return null;
   }
 }
