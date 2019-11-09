@@ -11,8 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "@types/command-exists": "^1.2.0",
+    "@types/shelljs": "^0.8.6",
     "azure-pipelines-task-lib": "^2.9.3",
-    "command-exists": "^1.2.8"
+    "command-exists": "^1.2.8",
+    "shelljs": "^0.8.3"
   },
   "devDependencies": {
     "@types/node": "^12.7.12",
