@@ -1,4 +1,4 @@
-import { VulnScanItem } from "../interfaces/VulnScanning";
+import { VulnScanItem } from "../models/VulnerabilityScanItemResult";
 import fs from 'fs';
 import path from 'path';
 
