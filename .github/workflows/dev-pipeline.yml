@@ -35,4 +35,4 @@ jobs:
     - name: Get Current Version
       working-directory: anchoreScanTask
       run: |
-        tfx extension show -t ${{ secrets.MARKETPLACE_TOKEN }} --publisher Farrellsoft --extension-id anchore-task --output json | jq '.versions | .[0].version'
+        tfx extension show -t ${{ secrets.MarketplaceToken }} --publisher Farrellsoft --extension-id anchore-task --output json | jq '.versions | .[0].version'
