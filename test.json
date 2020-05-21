@@ -1,8 +1,8 @@
 {
   "manifestVersion": 1,
   "id": "anchore-task-dev",
-  "name": "Anchore Image Scanning (dev)",
-  "version": "1.2.9",
+  "name": "Anchore Image Scanning",
+  "version": "1.2.7",
   "publisher": "Farrellsoft",
   "targets": [
     {
@@ -17,9 +17,9 @@
     "default": "images/anchore128.png"
   },
   "files": [
-    { "path": "anchoreScanTask/dist" },
-    { "path": "anchoreScanTask/task.json" },
-    { "path": "anchoreScanTask/icon.png" }
+    {
+      "path": "anchoreScanTask/dist"
+    }
   ],
   "contributions": [
     {
@@ -45,5 +45,5 @@
     "type": "git",
     "uri": "https://github.com/farrellsoft/anchore-task-extension"
   },
-  "public": false
+  "public": true
 }
