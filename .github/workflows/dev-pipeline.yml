@@ -34,7 +34,8 @@ jobs:
 
     - name: Rev Manifest
       run: |
-        current_version=$(tfx extension show -t ${{ secrets.MarketplaceToken }} --publisher Farrellsoft --extension-id anchore-task --output json | jq '.versions | .[0].version')
+        current_version=$(tfx extension show -t ${{ secrets.MarketplaceToken }} --publisher Farrellsoft --extension-id anchore-task-dev --output json | jq '.versions | .[0].version')
+        current_version=$(if [ $current_version == "null" ]; then echo "1.0.0"; else echo $current_version; fi)
         current_version=$(echo $current_version | sed -e 's/^"//' -e 's/"$//')
         new_version=$(semver -i $current_version)
         json=$(cat vss-extension.dev.json | jq --arg v "${new_version}" '.version = $v')
