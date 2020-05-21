@@ -43,3 +43,4 @@ jobs:
     - name: Publish Extension
       run: |
         tfx extension publish -t ${{ secrets.MarketplaceToken }} --share-with Farrellsoft --manifests vss-extension.dev.json
+        echo "Done"
