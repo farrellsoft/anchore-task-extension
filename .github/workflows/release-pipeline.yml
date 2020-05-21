@@ -1,31 +1,38 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Release
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   push:
     branches: [ master ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  publish:
     runs-on: ubuntu-latest
+    name: Publish Package
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    # Runs a single command using the runners shell
-    - name: Run a one-line script
-      run: echo Hello, world!
+      - name: Install Dependencies
+        working-directory: anchoreScanTask
+        run: |
+          npm install
+          sudo npm install -g tfx-cli semver
 
-    # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+      - name: Prepare Task
+        working-directory: anchoreScanTask
+        run: |
+          tsc
+          mv task.release task.json
+
+      - name: Rev Manifest
+        run: |
+          current_version=$(tfx extension show -t ${{ secrets.MarketplaceToken }} --publisher Farrellsoft --extension-id anchore-task-dev --output json | jq '.versions | .[0].version')
+          current_version=$(if [ $current_version == "null" ]; then echo "1.0.0"; else echo $current_version; fi)
+          current_version=$(echo $current_version | sed -e 's/^"//' -e 's/"$//')
+          new_version=$(semver -i minor $current_version)
+          json=$(cat vss-extension.json | jq --arg v "${new_version}" '.version = $v')
+          echo $json > vss-extension.json
+
+      - name: Publish Extension
+        run: |
+          tfx extension publish -t ${{ secrets.MarketplaceToken }} --manifests vss-extension.json
