@@ -32,7 +32,7 @@ jobs:
       workingDirectory: anchoreScanTask
       run: tsc
 
-    - name: Get Current Version
+    - name: Get Current Version 2
       workingDirectory: anchoreScanTask
       run: |
         tfx extension show -t ${{ secrets.MARKETPLACE_TOKEN }} --publisher Farrellsoft --extension-id anchore-task --output json | jq '.versions | .[0].version'
