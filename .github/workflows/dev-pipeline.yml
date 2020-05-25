@@ -25,7 +25,7 @@ jobs:
       run: |
         tsc
         mv task.dev.json task.json
-        cp -r anchoreScanTask/node_modules anchoreScanTask/dist/
+        cp -r node_modules anchoreScanTask/dist/
 
     - name: Rev Manifest
       run: |
