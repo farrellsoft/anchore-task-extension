@@ -2,15 +2,15 @@
   "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
   "id": "0811b46d-75ad-4255-bab6-8632f720a4e4",
   "name": "AnchoreTask",
-  "friendlyName": "Anchore Task",
+  "friendlyName": "Anchore Task (dev)",
   "description": "Task for Integrating with Anchore Engine",
   "helpMarkDown": "",
   "category": "Utility",
   "author": "Farrellsoft",
   "version": {
     "Major": 1,
-    "Minor": 4,
-    "Patch": 5
+    "Minor": 10,
+    "Patch": 0
   },
   "visibility": ["Build", "Release"],
   "instanceNameFormat": "Analyzing Image with Anchore",
