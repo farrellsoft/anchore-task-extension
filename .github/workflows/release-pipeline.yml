@@ -2,7 +2,8 @@ name: Release
 
 on:
   push:
-    branches: [ master ]
+    tags:
+      - v*
 
 jobs:
   publish:
@@ -26,13 +27,4 @@ jobs:
 
       - name: Rev Manifest
         run: |
-          current_version=$(tfx extension show -t ${{ secrets.MarketplaceToken }} --publisher Farrellsoft --extension-id anchore-task-dev --output json | jq '.versions | .[0].version')
-          current_version=$(if [ $current_version == "null" ]; then echo "1.0.0"; else echo $current_version; fi)
-          current_version=$(echo $current_version | sed -e 's/^"//' -e 's/"$//')
-          new_version=$(semver -i minor $current_version)
-          json=$(cat vss-extension.json | jq --arg v "${new_version}" '.version = $v')
-          echo $json > vss-extension.json
-
-      - name: Publish Extension
-        run: |
-          tfx extension publish -t ${{ secrets.MarketplaceToken }} --manifests vss-extension.json
+          echo ${GITHUB_REF##*/}
