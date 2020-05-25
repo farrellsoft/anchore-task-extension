@@ -17,7 +17,7 @@ jobs:
         working-directory: anchoreScanTask
         run: |
           npm install
-          sudo npm install -g tfx-cli semver
+          sudo npm install -g tfx-cli
 
       - name: Prepare Task
         working-directory: anchoreScanTask
@@ -27,4 +27,10 @@ jobs:
 
       - name: Rev Manifest
         run: |
-          echo ${GITHUB_REF##*/}
+          new_version=$(echo ${GITHUB_REF##*/} | sed -e 's/^v//')
+          json=$(cat vss-extension.json | jq --arg v "${new_version}" '.version = $v')
+          echo $json > vss-extension.json
+
+      - name: Publish Extension
+        run: |
+          tfx extension publish -t ${{ secrets.MarketplaceToken }} --manifests vss-extension.json
