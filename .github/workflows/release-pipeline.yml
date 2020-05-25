@@ -23,7 +23,7 @@ jobs:
         working-directory: anchoreScanTask
         run: |
           tsc
-          mv task.release task.json
+          mv task.release.json task.json
 
       - name: Rev Manifest
         run: |
