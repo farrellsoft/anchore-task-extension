@@ -15,7 +15,7 @@
     "azure-pipelines-task-lib": "^2.9.3",
     "command-exists": "^1.2.8",
     "semver": "^7.3.2",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.5"
   },
   "devDependencies": {
     "@types/node": "^12.12.41",
